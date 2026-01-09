@@ -35,8 +35,6 @@ O modelo de dados foi estruturado em esquema estrela, composto por:
 Essa abordagem facilita análises temporais, comparativos e segmentações
 de performance.
 
-📷 *Imagem do diagrama entidade-relacionamento pode ser adicionada aqui.*
-
 ---
 
 ## 📐 Dicionário de Medidas (DAX)
