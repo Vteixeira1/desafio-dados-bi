@@ -1,0 +1,112 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "eca4ad5a4ecd7d0b7807",
+  "position": {
+    "x": 0,
+    "y": 337.50759878419456,
+    "z": 0,
+    "height": 382.24924012158056,
+    "width": 640,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "scatterChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "D_Produto"
+                    }
+                  },
+                  "Property": "Sub-Category"
+                }
+              },
+              "queryRef": "D_Produto.Sub-Category",
+              "nativeQueryRef": "Sub-Category",
+              "active": true
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "D_Produto"
+                    }
+                  },
+                  "Property": "Category"
+                }
+              },
+              "queryRef": "D_Produto.Category",
+              "nativeQueryRef": "Category"
+            }
+          ]
+        },
+        "Size": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Faturamento"
+                }
+              },
+              "queryRef": "Medidas.Faturamento",
+              "nativeQueryRef": "Faturamento"
+            }
+          ]
+        },
+        "X": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Desconto médio"
+                }
+              },
+              "queryRef": "Medidas.Desconto médio",
+              "nativeQueryRef": "Desconto médio",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Profit"
+                }
+              },
+              "queryRef": "Medidas.Profit",
+              "nativeQueryRef": "Profit"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

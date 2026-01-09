@@ -1,0 +1,148 @@
+table F_Vendas
+	lineageTag: c9e96f86-2cb2-42d5-8c25-90f1d0b7c179
+
+	column 'Row ID'
+		dataType: string
+		lineageTag: 19eec50a-8e84-46e8-b87e-b4cc8a27cb49
+		summarizeBy: none
+		sourceColumn: Row ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order ID'
+		dataType: string
+		lineageTag: e21b77fb-abb0-4c82-8205-efb65151db9a
+		summarizeBy: none
+		sourceColumn: Order ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 2976fa5b-4079-49f0-b7e2-24dbde491ed4
+		summarizeBy: none
+		sourceColumn: Order Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Ship Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 2dcef014-60bb-4d33-89b4-93af39f60688
+		summarizeBy: none
+		sourceColumn: Ship Date
+
+		variation Variation
+			isDefault
+			relationship: 81c6ea8e-9017-4e51-8700-ddc15902c78d
+			defaultHierarchy: LocalDateTable_6f7eda71-d39e-4fbe-a10b-dc03092b7f43.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Ship Mode'
+		dataType: string
+		lineageTag: 11b41080-212a-45e8-a813-4d385eb882a8
+		summarizeBy: none
+		sourceColumn: Ship Mode
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer ID'
+		dataType: string
+		lineageTag: 2ac84919-b679-4953-bdd3-4b25db351cbb
+		summarizeBy: none
+		sourceColumn: Customer ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: 1e0f570f-40bb-4dcb-8c8d-ed38fef56a8a
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product ID'
+		dataType: string
+		lineageTag: 29713d3d-6bd2-4cc4-8227-df72b326cbe7
+		summarizeBy: none
+		sourceColumn: Product ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sales
+		dataType: double
+		lineageTag: 3fe0b532-a1b7-44d9-b8f0-b97574320735
+		summarizeBy: sum
+		sourceColumn: Sales
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 714a0986-38be-48a8-af0d-19d57421aea6
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column Discount
+		dataType: double
+		lineageTag: 51f66ea2-98e3-409c-9ccd-e47644dc753e
+		summarizeBy: sum
+		sourceColumn: Discount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Profit
+		dataType: double
+		lineageTag: baf1a285-8895-4cba-a10e-ad90d0581e18
+		summarizeBy: sum
+		sourceColumn: Profit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Faixa Desconto' = ```
+			
+			SWITCH (
+			    TRUE(),
+			    F_Vendas[Discount] = 0, "Sem desconto",
+			    F_Vendas[Discount] <= 0.10, "Até 10%",
+			    F_Vendas[Discount] <= 0.20, "10% a 20%",
+			    F_Vendas[Discount] <= 0.30, "20% a 30%",
+			    "Acima de 30%"
+			)
+			
+			```
+		lineageTag: ddf44769-65d1-4fc0-bff5-442df2d5051e
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition F_Vendas = m
+		mode: import
+		queryGroup: Fato
+		source =
+				let
+				    Fonte = Base,
+				    #"Colunas Removidas" = Table.RemoveColumns(Fonte,{"Customer Name", "Segment", "Country", "City", "State", "Postal Code", "Category", "Sub-Category", "Product Name"})
+				in
+				    #"Colunas Removidas"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

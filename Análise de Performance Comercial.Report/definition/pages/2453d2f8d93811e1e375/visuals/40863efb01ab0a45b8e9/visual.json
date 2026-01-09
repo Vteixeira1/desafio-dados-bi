@@ -1,0 +1,108 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "40863efb01ab0a45b8e9",
+  "position": {
+    "x": 728.51063829787233,
+    "y": 307.35562310030394,
+    "z": 1000,
+    "height": 412.40121580547117,
+    "width": 551.48936170212767,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "D_Produto"
+                    }
+                  },
+                  "Property": "Category"
+                }
+              },
+              "queryRef": "D_Produto.Category",
+              "nativeQueryRef": "Category"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "D_Produto"
+                    }
+                  },
+                  "Property": "Sub-Category"
+                }
+              },
+              "queryRef": "D_Produto.Sub-Category",
+              "nativeQueryRef": "Sub-Category"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Desconto médio"
+                }
+              },
+              "queryRef": "Medidas.Desconto médio",
+              "nativeQueryRef": "Desconto médio"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Faturamento"
+                }
+              },
+              "queryRef": "Medidas.Faturamento",
+              "nativeQueryRef": "Faturamento"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Profit"
+                }
+              },
+              "queryRef": "Medidas.Profit",
+              "nativeQueryRef": "Profit"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Rentabilidade"
+                }
+              },
+              "queryRef": "Medidas.Profit per Order",
+              "nativeQueryRef": "Rentabilidade"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,58 @@
+table D_Produto
+	lineageTag: e6f703d5-af7d-4de9-88c0-3813f080ff51
+
+	column 'Row ID'
+		dataType: string
+		lineageTag: 476a674e-0046-438f-a4bf-fcc9fb23d178
+		summarizeBy: none
+		sourceColumn: Row ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product ID'
+		dataType: string
+		lineageTag: 3257fc25-062c-448a-a7cd-5a7aa76bd5a5
+		summarizeBy: none
+		sourceColumn: Product ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: dd27e625-336c-4ebb-9a83-1cb0acb80f7b
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sub-Category
+		dataType: string
+		lineageTag: ba4c79ad-a55d-4c1c-899c-f0cb296768f2
+		summarizeBy: none
+		sourceColumn: Sub-Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Name'
+		dataType: string
+		lineageTag: c6697504-bc5e-455b-a5a8-8b7583ed1dd5
+		summarizeBy: none
+		sourceColumn: Product Name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition D_Produto = m
+		mode: import
+		queryGroup: Dimensões
+		source =
+				let
+				    Fonte = Base,
+				    #"Colunas Removidas" = Table.RemoveColumns(Fonte,{"Order ID", "Order Date", "Ship Date", "Ship Mode", "Customer ID", "Customer Name", "Segment", "Country", "City", "State", "Postal Code", "Region", "Sales", "Quantity", "Discount", "Profit"}),
+				    #"Duplicatas Removidas" = Table.Distinct(#"Colunas Removidas", {"Product ID"})
+				in
+				    #"Duplicatas Removidas"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

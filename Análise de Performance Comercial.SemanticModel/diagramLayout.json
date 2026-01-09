@@ -1,0 +1,99 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 116,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 624.38305001469371,
+            "y": 415
+          },
+          "nodeIndex": "D_Cliente",
+          "nodeLineageTag": "9a084219-a6e5-48ae-9977-b2b476c5e75e",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 197,
+            "y": 482
+          },
+          "nodeIndex": "D_Produto",
+          "nodeLineageTag": "e6f703d5-af7d-4de9-88c0-3813f080ff51",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 380.20156119318517,
+            "y": 0
+          },
+          "nodeIndex": "F_Vendas",
+          "nodeLineageTag": "c9e96f86-2cb2-42d5-8c25-90f1d0b7c179",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 1097.3830500146937,
+            "y": 0
+          },
+          "nodeIndex": "Atualização",
+          "nodeLineageTag": "fced78d8-3b71-493c-bf0d-2d63d6bff8d4",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 451.38305001469371,
+            "y": 577.5
+          },
+          "nodeIndex": "D_Data",
+          "nodeLineageTag": "70d2c172-746c-4d49-b7d9-778df82a2931",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1184.3830500146937,
+            "y": 288.75
+          },
+          "nodeIndex": "Medidas",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas as tabelas",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas as tabelas",
+  "defaultDiagram": "Todas as tabelas"
+}

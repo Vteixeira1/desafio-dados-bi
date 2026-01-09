@@ -1,0 +1,27 @@
+relationship 81c6ea8e-9017-4e51-8700-ddc15902c78d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: F_Vendas.'Ship Date'
+	toColumn: LocalDateTable_6f7eda71-d39e-4fbe-a10b-dc03092b7f43.Date
+
+relationship c1083290-204d-1f5d-0bbd-0d21dae4a6ca
+	fromColumn: F_Vendas.'Customer ID'
+	toColumn: D_Cliente.'Customer ID'
+
+relationship 03a60191-5ae6-6945-7f49-3fcb9070ca76
+	fromColumn: F_Vendas.'Product ID'
+	toColumn: D_Produto.'Product ID'
+
+relationship c932241a-80fa-4c5a-af0f-756a206b5b88
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Atualização.'Última Atualização'
+	toColumn: LocalDateTable_87eb474c-d1ac-4f79-ba51-cf680bdfff69.Date
+
+relationship 2262042b-18d5-441f-9077-43f4e9be6034
+	joinOnDateBehavior: datePartOnly
+	fromColumn: D_Data.Date
+	toColumn: LocalDateTable_4d029fdf-ce61-4d8c-bab4-ece2a6752925.Date
+
+relationship 10765edc-68cb-0f4a-ab88-531cc9c166fb
+	fromColumn: F_Vendas.'Order Date'
+	toColumn: D_Data.Date
+

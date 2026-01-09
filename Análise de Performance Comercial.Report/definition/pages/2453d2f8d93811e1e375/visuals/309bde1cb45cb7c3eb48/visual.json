@@ -1,0 +1,93 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "309bde1cb45cb7c3eb48",
+  "position": {
+    "x": 0,
+    "y": 79.756838905775084,
+    "z": 2000,
+    "height": 248.0243161094225,
+    "width": 640,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "F_Vendas"
+                    }
+                  },
+                  "Property": "Faixa Desconto"
+                }
+              },
+              "queryRef": "F_Vendas.Faixa Desconto",
+              "nativeQueryRef": "Faixa Desconto",
+              "active": true
+            }
+          ]
+        },
+        "Tooltips": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Insight Desconto x Lucro"
+                }
+              },
+              "queryRef": "Medidas.Insight Desconto x Lucro",
+              "nativeQueryRef": "Insight Desconto x Lucro"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Profit"
+                }
+              },
+              "queryRef": "Medidas.Profit",
+              "nativeQueryRef": "Profit"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Medidas"
+                  }
+                },
+                "Property": "Profit"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

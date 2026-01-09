@@ -1,0 +1,31 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "28de4923ae06173638d2",
+  "position": {
+    "x": 454.54545454545456,
+    "y": 213.63636363636363,
+    "z": 1000,
+    "height": 344.5454545454545,
+    "width": 370.90909090909088,
+    "tabOrder": 1000
+  },
+  "visualGroup": {
+    "displayName": "Grupo 1",
+    "groupMode": "ScaleMode",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'a\n'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

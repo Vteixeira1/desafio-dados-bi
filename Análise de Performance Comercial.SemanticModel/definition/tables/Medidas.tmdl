@@ -1,0 +1,186 @@
+table Medidas
+	isHidden
+	lineageTag: af940562-2912-48f9-ae15-7b4f51ef1018
+
+	measure Faturamento = ```
+			
+			SUM ( F_Vendas[Sales] )
+			
+			```
+		formatString: "R$"#,0.00;-"R$"#,0.00;"R$"#,0.00
+		isHidden
+		lineageTag: e40de754-e688-4823-8f67-cbf0e6a55168
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-BR"}
+
+	measure Profit = ```
+			
+			SUM ( F_Vendas[Profit] )
+			
+			```
+		formatString: "R$"#,0.00;-"R$"#,0.00;"R$"#,0.00
+		isHidden
+		lineageTag: dd9cce99-1c60-43eb-8d6b-f628599f5e42
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-BR"}
+
+	measure 'Margem de lucro' = ```
+			
+			DIVIDE ( [Profit], [Faturamento] )
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		isHidden
+		lineageTag: 6a960443-40f8-40c6-bd06-464b0177b874
+
+	measure 'Qtd pedidos' = ```
+			
+			DISTINCTCOUNT ( F_Vendas[Order ID] )
+			
+			```
+		formatString: 0
+		isHidden
+		lineageTag: 2d440570-436f-4a24-b135-2fc8eae788b1
+
+	measure 'Qtd Produto' = ```
+			
+			SUM ( F_Vendas[Quantity] )
+			
+			```
+		formatString: 0
+		isHidden
+		lineageTag: e4628433-6b83-4709-9b59-bd922eb1bd9b
+
+	measure 'Desconto médio' = ```
+			
+			AVERAGE ( F_Vendas[Discount] )
+			
+			```
+		isHidden
+		lineageTag: 9a7cf323-cf47-4e9f-8203-9c95f1ef0a96
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Rentabilidade = ```
+			
+			DIVIDE ( [Profit], [Qtd pedidos] )
+			
+			```
+		isHidden
+		lineageTag: ab85b7ef-e058-4396-ab43-7fec79027c57
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Tooltip = ```
+			
+			"Resumo financeiro do estado selecionado"
+			
+			```
+		isHidden
+		lineageTag: 1dc330bb-b861-4261-b2d3-cd472d5f6fa6
+
+	measure 'Lucro Ano atual x Ano anterior (%)' = ```
+			
+			DIVIDE (
+			    [Profit] - [Faturamento ano anterior],
+			    [Faturamento ano anterior]
+			)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		isHidden
+		lineageTag: cb48dcb0-84ce-486a-8f22-98b6d75001f3
+
+	measure 'Faturamento ano anterior' = ```
+			
+			CALCULATE (
+			    [Profit],
+			    SAMEPERIODLASTYEAR ( D_Data[Date] )
+			)
+			
+			```
+		isHidden
+		lineageTag: 2352f197-f04b-419c-aa17-238db051121d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Insight Desconto x Lucro' = ```
+			
+			VAR Margem = [Rentabilidade]
+			VAR Desconto = AVERAGE ( F_Vendas[Discount] )
+			RETURN
+			SWITCH (
+			    TRUE(),
+			    Desconto > 0.30 && Margem < 0,
+			    "❌ Alto desconto com prejuízo. Política comercial deve ser revista.",
+			    Desconto > 0.20 && Margem < 0.05,
+			    "⚠️ Desconto elevado com margem crítica.",
+			    Margem > 0.10,
+			    "✅ Desconto saudável, margem preservada.",
+			    "Análise necessária."
+			)
+			
+			```
+		isHidden
+		lineageTag: e51c1e87-5d1f-4056-afd6-bedf34a511e9
+
+	measure 'Cor Profit' = ```
+			
+			IF (
+			    [Profit] < 0,
+			    "#C00000",       
+			    "#006400"        
+			)
+			
+			```
+		isHidden
+		lineageTag: e8af89f0-d2d9-491c-bd45-a13c19d6354f
+
+	measure 'Crescimento Faturamento (%)' = ```
+			
+			DIVIDE (
+			    [Faturamento] - [Faturamento ano anterior1],
+			    [Faturamento ano anterior1]
+			)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		isHidden
+		lineageTag: d1ede914-73d1-4b19-8840-a083315c6ddb
+
+	measure 'Faturamento ano anterior1' = ```
+			
+			CALCULATE (
+			    [Faturamento],
+			    SAMEPERIODLASTYEAR ( D_Data[Date] )
+			)
+			
+			```
+		isHidden
+		lineageTag: 525c8b5d-bdd2-4666-97b6-7de46006554a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Medidas
+		isHidden
+		formatString: 0
+		lineageTag: 81a4cf29-1ab6-4664-9d8d-6e19f533ba90
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Medidas]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Medidas = calculated
+		mode: import
+		source = ```
+				
+				DATATABLE (
+				    "Medidas", INTEGER,
+				    { { 1 } }
+				)
+				
+				```
+
+	annotation PBI_Id = 918c617a6c484f4e97e56885748a69dd
+

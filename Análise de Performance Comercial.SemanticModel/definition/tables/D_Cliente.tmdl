@@ -1,0 +1,82 @@
+table D_Cliente
+	lineageTag: 9a084219-a6e5-48ae-9977-b2b476c5e75e
+
+	column 'Row ID'
+		dataType: string
+		lineageTag: 006be21d-c7fc-415e-9e68-02a21f8218fb
+		summarizeBy: none
+		sourceColumn: Row ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer ID'
+		dataType: string
+		lineageTag: 599c79b3-9a9c-49b5-adb4-a35fa4cb2da8
+		summarizeBy: none
+		sourceColumn: Customer ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer Name'
+		dataType: string
+		lineageTag: 9e07a336-73a0-40d3-995e-d507ed1c13a4
+		summarizeBy: none
+		sourceColumn: Customer Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Segment
+		dataType: string
+		lineageTag: 9e90581a-d7da-4afb-b10b-4c6db6860066
+		summarizeBy: none
+		sourceColumn: Segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: 8ca160b4-3dd3-46cd-98d6-bb915a2241ca
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		lineageTag: 1a89f58e-eaa5-40eb-83d9-18856c1905df
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		lineageTag: c3775716-c9b8-4ab2-aec9-6da286d791a9
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: e6421d4a-9967-4759-8f69-85491700d6a1
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	partition D_Cliente = m
+		mode: import
+		queryGroup: Dimensões
+		source =
+				let
+				    Fonte = Base,
+				    #"Colunas Removidas" = Table.RemoveColumns(Fonte,{"Order ID", "Order Date", "Ship Date", "Ship Mode", "Postal Code", "Product ID", "Category", "Sub-Category", "Product Name", "Sales", "Quantity", "Discount", "Profit"}),
+				    #"Duplicatas Removidas" = Table.Distinct(#"Colunas Removidas", {"Customer ID"})
+				in
+				    #"Duplicatas Removidas"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,16 @@
+expression Base =
+		let
+		    Fonte = Csv.Document(Web.Contents("https://statics-116976060176.s3.us-east-1.amazonaws.com/technical-challenges/data-and-bi/sales-20260105.csv"),[Delimiter=",", Columns=21, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+		    #"Tipo Alterado com Localidade" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos", {{"Sales", type number}, {"Discount", type number}, {"Profit", type number}}, "en-US"),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(#"Tipo Alterado com Localidade",{{"Quantity", Int64.Type}}),
+		    #"Tipo Alterado com Localidade1" = Table.TransformColumnTypes(#"Tipo Alterado", {{"Order Date", type date}, {"Ship Date", type date}}, "en-US")
+		in
+		    #"Tipo Alterado com Localidade1"
+	lineageTag: 38a86b90-8e4f-4399-b8cd-f9c19855b254
+	queryGroup: 00_Base_Inicio
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

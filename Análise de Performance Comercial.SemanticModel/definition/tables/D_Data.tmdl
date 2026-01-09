@@ -1,0 +1,127 @@
+table D_Data
+	lineageTag: 70d2c172-746c-4d49-b7d9-778df82a2931
+
+	column Date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 4f2f6c1c-554d-4bf2-9470-98000c0224e4
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: 2262042b-18d5-441f-9077-43f4e9be6034
+			defaultHierarchy: LocalDateTable_4d029fdf-ce61-4d8c-bab4-ece2a6752925.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 8b09447e-387e-4e90-9621-59d3d01c02b3
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: int64
+		formatString: 0
+		lineageTag: a2d7b9ee-43be-44dc-b976-c00078310ce1
+		summarizeBy: sum
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Name'
+		dataType: string
+		lineageTag: fa142508-70bf-451d-87dc-1e262baea9ea
+		summarizeBy: none
+		sourceColumn: Month Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year-Month
+		dataType: string
+		lineageTag: 65907bec-2183-4643-b6af-1cc21bc97e92
+		summarizeBy: none
+		sourceColumn: Year-Month
+
+		annotation SummarizationSetBy = Automatic
+
+	partition D_Data = m
+		mode: import
+		queryGroup: Dimensões
+		source =
+				let
+				    Fonte = Base,
+				
+				    DatasValidas =
+				        List.RemoveNulls(
+				            Table.Column(Fonte, "Order Date")
+				        ),
+				
+				    DataInicial = List.Min(DatasValidas),
+				    DataFinal = List.Max(DatasValidas),
+				
+				    ListaDatas =
+				        List.Dates(
+				            DataInicial,
+				            Duration.Days(DataFinal - DataInicial) + 1,
+				            #duration(1,0,0,0)
+				        ),
+				
+				    TabelaDatas =
+				        Table.FromList(
+				            ListaDatas,
+				            Splitter.SplitByNothing(),
+				            {"Date"}
+				        ),
+				
+				    TipoData =
+				        Table.TransformColumnTypes(
+				            TabelaDatas,
+				            {{"Date", type date}}
+				        ),
+				
+				    Ano =
+				        Table.AddColumn(
+				            TipoData,
+				            "Year",
+				            each Date.Year([Date]),
+				            Int64.Type
+				        ),
+				
+				    Mes =
+				        Table.AddColumn(
+				            Ano,
+				            "Month",
+				            each Date.Month([Date]),
+				            Int64.Type
+				        ),
+				
+				    NomeMes =
+				        Table.AddColumn(
+				            Mes,
+				            "Month Name",
+				            each Date.MonthName([Date]),
+				            type text
+				        ),
+				
+				    AnoMes =
+				        Table.AddColumn(
+				            NomeMes,
+				            "Year-Month",
+				            each Date.ToText([Date], "yyyy-MM"),
+				            type text
+				        ),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(AnoMes,{{"Date", type date}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
